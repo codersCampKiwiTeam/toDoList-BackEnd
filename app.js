@@ -26,6 +26,7 @@ app.use(express.json());
 // Routes
 app.use('/auth', require('./routes/AuthController.js'));
 app.use('/users', require('./routes/UsersController.js'));
+app.use('/tasks', require('./routes/tasks'));
 
 const PORT = process.env.PORT || 5004;
 
