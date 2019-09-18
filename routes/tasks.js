@@ -22,6 +22,20 @@ router.post('/', async (req, res) => {
   res.send(task);
 });
 
+router.post('/', async (req, res) => {
+  const { error } = validate(req.body); 
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let task = new Task({ 
+    nameTask: req.body.nameTask,
+    dateTask: req.body.dateTask,
+    description: req.body.description
+  });
+  task = await task.save();
+  
+  res.send(task);
+});
+
 router.put('/:id', async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
