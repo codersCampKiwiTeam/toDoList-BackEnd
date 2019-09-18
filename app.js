@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-mongoose.connect('mongodb://localhost/users', { 
+mongoose.connect(config.get('db'), { 
 useNewUrlParser: true, useUnifiedTopology: true  
 })
 .then(() => console.log('connected to MongoDB...'))
