@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-mongoose.connect(config.get('db'), { 
+mongoose.connect('mongodb+srv://coderscampkiwiteam:test@todoapp-jswak.mongodb.net/test?retryWrites=true&w=majority', { 
 useNewUrlParser: true, useUnifiedTopology: true  
 })
 .then(() => console.log('connected to MongoDB...'))
