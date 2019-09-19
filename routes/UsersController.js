@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const auth = require('../middleware/auth');
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
@@ -30,7 +31,7 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.post('/login', async (req, res) => { 
+app.post('/login', auth, async (req, res) => { 
     let token;
     try 
     {
