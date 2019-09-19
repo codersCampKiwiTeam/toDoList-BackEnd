@@ -1,15 +1,14 @@
 const {Task, validate} = require('../models/task'); 
-const auth = require('../middleware/auth');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   const tasks = await Task.find().sort('name');
   res.send(tasks);
 });
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -23,7 +22,7 @@ router.post('/', auth, async (req, res) => {
   res.send(task);
 });
 
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -39,7 +38,7 @@ router.put('/:id', auth, async (req, res) => {
   res.send(task);
 });
 
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const task = await Task.findByIdAndRemove(req.params.id);
 
   if (!task) return res.status(404).send('The task with the given ID was not found.');
@@ -47,7 +46,7 @@ router.delete('/:id', auth, async (req, res) => {
   res.send(task);
 });
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   const task = await Task.findById(req.params.id);
 
   if (!task) return res.status(404).send('The task with the given ID was not found.');

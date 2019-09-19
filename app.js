@@ -2,20 +2,22 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 const app = express();
+const cors = require('cors');
 
 
-if(!config.get('jwtPrivateKey')){
+if(!process.env.api_jwtPrivateKey){
     console.error('FATAL ERROR jwtPrivateKey is not defined');
     process.exit(1);
 }
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cors());
+app.options("*", cors({ 
+    "origin" : "*",
+    "methods" : "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    "allowedHeaders": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, x-auth-token"
+}));
 
 mongoose.connect('mongodb+srv://coderscampkiwiteam:test@todoapp-jswak.mongodb.net/test?retryWrites=true&w=majority', { 
-useNewUrlParser: true, useUnifiedTopology: true  
+useNewUrlParser: true, useUnifiedTopology: true    
 })
 .then(() => console.log('connected to MongoDB...'))
 .catch(err => console.error('Could not connect to MongoDB...'))
@@ -24,10 +26,9 @@ mongoose.set('useCreateIndex', true);
 app.use(express.json());
 
 // Routes
-app.use('/auth', require('./routes/AuthController.js'));
 app.use('/users', require('./routes/UsersController.js'));
-app.use('/tasks', require('./routes/tasks'));
+app.use('/tasks', require('./routes/tasks.js'));
 
-const PORT = process.env.PORT || 5004;
+const PORT = process.env.PORT || 5005;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
