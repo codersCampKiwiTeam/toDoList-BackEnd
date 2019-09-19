@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 
-const Task = mongoose.model('Task', new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
   nameTask: {
     type: String,
     required: true,
@@ -14,18 +14,29 @@ const Task = mongoose.model('Task', new mongoose.Schema({
   },
   description: {
       type: String,
+  },
+  status: {
+    type: String,
+    enum: ['urgent','moderate','forLater']
   }
-}));
+});
 
-function validateTask(task) {
-  const schema = {
-    nameTask: Joi.string().min(3).max(50).required(),
-    dateTask: Joi.date().required(),
-    description: Joi.string()
-  };
+const Task = mongoose.model('Task', taskSchema);
 
-  return Joi.validate(task, schema);
+taskSchema.methods.validateInput = function () {
+  const schema = Joi.object().keys({
+    nameTask: Joi.string()
+    .min(3)
+    .max(50)
+    .required(),
+    dateTask: Joi.date()
+    .required(),
+    description: Joi.string(),
+    status: Joi.string()
+  })
+  .options({abortEarly : false});
+  return schema.validate(this.toObject());
 }
 
-exports.Task = Task; 
-exports.validate = validateTask;
+exports.taskSchema = taskSchema;
+exports.Task = Task;

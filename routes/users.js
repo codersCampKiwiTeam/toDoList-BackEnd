@@ -19,9 +19,9 @@ const User = mongoose.model('User', userSchema);
 
 const register = app.post('/register', async (req, res) =>{
     let user = new User({
-    name: req.body.registerName,//Tak nazwała to osoba, która pisała fetch w script.js, chciałam się dopasować, żeby sprawdzić czy działa. Zresztą w script js musiałam poprawić to zapytanie jsonowe bo tam nie ma myślników
-    email: req.body.registerEmail,//Tak nazwała to osoba, która pisała fetch w script.js, chciałam się dopasować, żeby sprawdzić czy działa. Zresztą w script js musiałam poprawić to zapytanie jsonowe bo tam nie ma myślników
-    password:req.body.registerPassword//Tak nazwała to osoba, która pisała fetch w script.js, chciałam się dopasować, żeby sprawdzić czy działa. Zresztą w script js musiałam poprawić to zapytanie jsonowe bo tam nie ma myślników
+    name: req.body.registerName,
+    email: req.body.registerEmail,
+    password:req.body.registerPassword
     });
     let salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
@@ -38,10 +38,10 @@ const register = app.post('/register', async (req, res) =>{
 
 
  const login = app.post('/login', async (req, res) =>{ 
-    let user = await User.findOne({ email: req.body.loginName });//Tak nazwała to osoba, która pisała fetch w script.js, chciałam się dopasować, żeby sprawdzić czy działa. Zresztą w script js musiałam poprawić to zapytanie jsonowe bo tam nie ma myślników
+    let user = await User.findOne({ email: req.body.loginName });
     if (!user) return res.status(400).send('Invalid email or password');
   
-    const validPassword = await bcrypt.compare(req.body.loginPassword, user.password);//Tak nazwała to osoba, która pisała fetch w script.js, chciałam się dopasować, żeby sprawdzić czy działa. Zresztą w script js musiałam poprawić to zapytanie jsonowe bo tam nie ma myślników
+    const validPassword = await bcrypt.compare(req.body.loginPassword, user.password);
     if (!validPassword) return res.status(400).send('Invalid email or password');
   
     const token = jwt.sign({ _id: this._id, user: this.user }, config.get('jwtPrivateKey'));
