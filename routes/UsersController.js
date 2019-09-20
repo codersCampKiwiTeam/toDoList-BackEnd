@@ -44,10 +44,7 @@ router.post('/register', async (req, res) => {
 
         await user.hashPassword();
         let result = await user.save();
-        //Tu nie powinniśmy tworzyć tokena? dla headera?
-        let token = jwt.sign({ _id: this._id, user: this.user }, config.get('jwtPrivateKey'));
-        //return res.send('{ok}');
-        return res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
+        return res.send('{ok}');
     }
     catch(ex) {
         return res.status(404).send('There was an error while processing the request');
