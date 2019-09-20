@@ -5,7 +5,6 @@ const router = express.Router();
 const cors = require('cors');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
-  console.log(req);
   const tasks = await Task.find().sort('nameTask');
   res.send(tasks);
 });
@@ -37,7 +36,7 @@ router.post('/', require('../middleware/auth.js').isAuthenticated, cors(), async
   // if (validationResult.error !== undefined) {
   //   return res.status(400).send(validationResult.error.details.map(i => i.message).join("\r\n"));
   // }
-  console.log(req);
+  console.log(req.body);
   try {
     let task = new Task({ 
       nameTask: req.body.nameTask,
