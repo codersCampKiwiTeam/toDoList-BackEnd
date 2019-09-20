@@ -17,7 +17,11 @@ router.post('/login', async (req, res) => {
         let token = jwt.sign({ _id: this._id, user: this.user }, config.get('jwtPrivateKey'));
         //zmiany
         let userID = user._id;
-        return res.send(token, userID);
+        let testOb = {
+            "userID": userID,
+            "token": token
+        }
+        return res.send(testOb);
     }
     catch(ex) {
         console.log(ex);
