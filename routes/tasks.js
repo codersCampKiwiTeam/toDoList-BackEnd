@@ -13,7 +13,9 @@ router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async 
   // const token = usertoken.split(' ');
   // const decoded = jwt.verify(token[1], 'secret-key');
   // console.log(decoded);
-  const tasks = await Task.find().sort('nameTask');
+  // const tasks = await Task.find().sort('nameTask');
+  const tasks = await Task.find({ owner: req.user._id});
+  console.log(req.user._id);
   console.log(tasks);
   res.send(tasks);
 });
