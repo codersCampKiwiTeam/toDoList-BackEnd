@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', auth, async (req, res) => {
-  const tasks = await Task.find().sort('name');
+  const tasks = await Task.find().sort('nameTask');
   res.send(tasks);
 });
 
