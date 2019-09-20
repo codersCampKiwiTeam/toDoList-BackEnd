@@ -36,16 +36,21 @@ router.post('/', require('../middleware/auth.js').isAuthenticated, cors(), async
   // if (validationResult.error !== undefined) {
   //   return res.status(400).send(validationResult.error.details.map(i => i.message).join("\r\n"));
   // }
-
-  let task = new Task({ 
-    nameTask: req.body.nameTask,
-    dateTask: req.body.dateTask,
-    description: req.body.description,
-    status: req.body.list
-  });
-  task = await task.save();
+  try {
+    let task = new Task({ 
+      nameTask: req.body.nameTask,
+      dateTask: req.body.dateTask,
+      description: req.body.description,
+      status: req.body.list
+    });
+    task = await task.save();
   
-  res.send(task);
+    res.send(task);
+  }
+  catch(error) {
+    return res.send(`Error: ${error}. Request: ${req}`)
+  }
+  
 });
 
 router.put('/:id', require('../middleware/auth.js').isAuthenticated, async (req, res) => {
