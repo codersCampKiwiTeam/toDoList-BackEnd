@@ -7,12 +7,12 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
-  const usertoken = req.header('X-Auth-Token');
+  // const usertoken = req.header('X-Auth-Token');
 
   //
-  const token = usertoken.split(' ');
-  const decoded = jwt.verify(token[1], 'secret-key');
-  console.log(decoded);
+  // const token = usertoken.split(' ');
+  // const decoded = jwt.verify(token[1], 'secret-key');
+  // console.log(decoded);
   const tasks = await Task.find().sort('nameTask');
   console.log(tasks);
   res.send(tasks);
