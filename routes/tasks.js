@@ -6,6 +6,7 @@ const cors = require('cors');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
   const tasks = await Task.find().sort('nameTask');
+  console.log(tasks);
   res.send(tasks);
 });
 
