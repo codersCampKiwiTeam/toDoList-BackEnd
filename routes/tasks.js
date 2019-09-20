@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
-  const token = req.header('X-Auth-Token');
+  const usertoken = req.header('X-Auth-Token');
 
   //
   const token = usertoken.split(' ');
