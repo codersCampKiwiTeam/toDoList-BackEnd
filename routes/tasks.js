@@ -3,8 +3,13 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
+  const token = req.header('X-Auth-Token');
+  const decoded = jwt.verify(token, config.get('jwtPrivateKey'));
+  console.log(decoded);
   const tasks = await Task.find().sort('nameTask');
   console.log(tasks);
   res.send(tasks);
