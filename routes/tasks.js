@@ -45,7 +45,7 @@ router.post('/', require('../middleware/auth.js').isAuthenticated, cors(), async
       status: req.body.list
     });
     task = await task.save();
-  
+    console.log(task);
     res.send(task);
   }
   catch(error) {
