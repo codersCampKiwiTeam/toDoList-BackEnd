@@ -8,7 +8,10 @@ const config = require('config');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
   const token = req.header('X-Auth-Token');
-  var decoded = jwt.decode(token);
+
+  //
+  const token = usertoken.split(' ');
+  const decoded = jwt.verify(token[1], 'secret-key');
   console.log(decoded);
   const tasks = await Task.find().sort('nameTask');
   console.log(tasks);
