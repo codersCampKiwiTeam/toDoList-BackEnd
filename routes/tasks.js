@@ -2,13 +2,16 @@ const {Task} = require('../models/task');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
+const cors = require('cors');
 
-router.get('/', async (req, res) => {
+router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
   const tasks = await Task.find().sort('nameTask');
   res.send(tasks);
 });
 
-router.post('/', require('../middleware/auth.js').isAuthenticated, async (req, res) => {
+//Problemy z joi
+
+router.post('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
 //   try {
 //       let task = new Task({ 
 //         nameTask: req.body.nameTask,

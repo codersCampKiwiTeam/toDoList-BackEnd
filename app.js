@@ -24,6 +24,9 @@ useNewUrlParser: true, useUnifiedTopology: true
 mongoose.set('useCreateIndex', true);
 // Express body parser
 app.use(express.json());
+//to nie wiem czy potrzebnie
+// app.use(cors());
+app.options('/tasks', cors())
 
 // Routes
 app.use('/users', require('./routes/UsersController.js'));
