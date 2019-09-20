@@ -1,4 +1,4 @@
-const Task = require('../models/task'); 
+const {Task} = require('../models/task'); 
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
@@ -9,41 +9,41 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', require('../middleware/auth.js').isAuthenticated, async (req, res) => {
-  try {
-      let task = new Task({ 
-        nameTask: req.body.nameTask,
-        dateTask: req.body.dateTask,
-        description: req.body.description,
-        status: req.body.list
-      });
+//   try {
+//       let task = new Task({ 
+//         nameTask: req.body.nameTask,
+//         dateTask: req.body.dateTask,
+//         description: req.body.description,
+//         status: req.body.list
+//       });
 
-      let validationResult = task.validateInput();
-      if (validationResult.error !== undefined) {
-        return res.status(400).send(validationResult.error.details.map(i => i.message).join("\r\n"));
-      }
+//       let validationResult = task.validateInput();
+//       if (validationResult.error !== undefined) {
+//         return res.status(400).send(validationResult.error.details.map(i => i.message).join("\r\n"));
+//       }
 
-      let result = await task.save();
-      return res.send(task);
-    }
-    catch(ex) {
-      return res.status(404).send('There was an error while processing the request');
-    }
-});
-//   const validationResult = task.validateInput();
-//   if (validationResult.error !== undefined) {
-//     return res.status(400).send(validationResult.error.details.map(i => i.message).join("\r\n"));
-//   }
-
-//   let task = new Task({ 
-//     nameTask: req.body.nameTask,
-//     dateTask: req.body.dateTask,
-//     description: req.body.description,
-//     status: req.body.list
-//   });
-//   task = await task.save();
-  
-//   res.send(task);
+//       let result = await task.save();
+//       return res.send(task);
+//     }
+//     catch(ex) {
+//       return res.status(404).send('There was an error while processing the request');
+//     }
 // });
+  // const validationResult = task.validateInput();
+  // if (validationResult.error !== undefined) {
+  //   return res.status(400).send(validationResult.error.details.map(i => i.message).join("\r\n"));
+  // }
+
+  let task = new Task({ 
+    nameTask: req.body.nameTask,
+    dateTask: req.body.dateTask,
+    description: req.body.description,
+    status: req.body.list
+  });
+  task = await task.save();
+  
+  res.send(task);
+});
 
 router.put('/:id', require('../middleware/auth.js').isAuthenticated, async (req, res) => {
   const validationResult = task.validateInput();
