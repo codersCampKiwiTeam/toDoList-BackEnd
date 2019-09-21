@@ -52,6 +52,7 @@ const ownerID = decoded._id;
   // if (validationResult.error !== undefined) {
   //   return res.status(400).send(validationResult.error.details.map(i => i.message).join("\r\n"));
   // }
+  console.log(ownerID);
   console.log(req.body);
   try {
     let task = new Task({ 
