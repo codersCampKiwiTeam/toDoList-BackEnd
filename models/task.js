@@ -21,7 +21,7 @@ const taskSchema = new mongoose.Schema({
   },
 owner: {
   type: String,
-  required
+  required: true
 }
 });
 
