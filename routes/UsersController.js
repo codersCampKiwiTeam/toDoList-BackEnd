@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
         if (!validPassword) return res.status(400).send('Invalid email or password');
     
         // const token = user.generateAuthToken();
-        let token = jwt.sign({ _id: user._id}, config.get('jwtPrivateKey'));
+        let token = jwt.sign({ _id: user._id}, 'kiwi-secret');
         return res.send(token);
     }
     catch(ex) {

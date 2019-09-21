@@ -8,7 +8,7 @@ const config = require('config');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
   const token = req.header('X-Auth-Token');
-  var decoded = jwt.verify(token, '_id');
+  var decoded = jwt.verify(token, 'kiwi-secret');
 
   //
   // const token = usertoken.split(' ');
