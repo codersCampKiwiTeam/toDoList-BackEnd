@@ -9,15 +9,15 @@ const config = require('config');
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
   const token = req.header('X-Auth-Token');
   const decoded = jwt.verify(token, 'kiwi-secret');
-  const id = decoded._id;
+  const ownerID = decoded._id;
   //
   // const token = usertoken.split(' ');
   // const decoded = jwt.verify(token[1], 'secret-key');
   console.log(decoded);
   console.log(id);
   // const tasks = await Task.find().sort('nameTask');
-  const tasks = await Task.find({id});
-  console.log(req.user._id);
+  const tasks = await Task.find({ownerID});
+  
   console.log(tasks);
   res.send(tasks);
 });
@@ -25,6 +25,9 @@ router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async 
 //Problemy z joi
 
 router.post('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
+const token = req.header('X-Auth-Token');
+const decoded = jwt.verify(token, 'kiwi-secret');
+const ownerID = decoded._id;
 //   try {
 //       let task = new Task({ 
 //         nameTask: req.body.nameTask,
@@ -56,7 +59,7 @@ router.post('/', require('../middleware/auth.js').isAuthenticated, cors(), async
       dateTask: req.body.dateTask,
       description: req.body.description,
       status: req.body.status,
-      owner: req.body.owner
+      owner: ownerID
     });
     task = await task.save();
     console.log(task);
