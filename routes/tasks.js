@@ -10,11 +10,11 @@ router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async 
   const token = req.header('X-Auth-Token');
   const decoded = jwt.verify(token, 'kiwi-secret');
   const ownerID = decoded._id;
-  //
+  //id
   // const token = usertoken.split(' ');
   // const decoded = jwt.verify(token[1], 'secret-key');
   console.log(decoded);
-  console.log(id);
+  console.log(ownerID);
   // const tasks = await Task.find().sort('nameTask');
   const tasks = await Task.find({ownerID});
   
