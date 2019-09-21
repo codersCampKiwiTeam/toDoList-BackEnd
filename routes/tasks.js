@@ -16,7 +16,7 @@ router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async 
   console.log(decoded);
   console.log(ownerID);
   // const tasks = await Task.find().sort('nameTask');
-  const tasks = await Task.find({ownerID});
+  const tasks = await Task.find({owner: ownerID});
   
   console.log(tasks);
   res.send(tasks);
