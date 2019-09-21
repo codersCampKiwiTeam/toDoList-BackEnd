@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -48,6 +50,11 @@ userSchema.methods.validateInput = function() {
 userSchema.methods.hashPassword = async function() {
   let salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+};
+
+userSchema.methods.generateAuthToken = function() { 
+  const token = jwt.sign({ _id: this._id}, config.get('jwtPrivateKey'));
+  return token;
 }
 
 const User = mongoose.model('User', userSchema);
