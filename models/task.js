@@ -19,8 +19,9 @@ const taskSchema = new mongoose.Schema({
     type: String,
     enum: ['urgent','moderate','forLater']
   },
-ownerID: {
-  type: String
+owner: {
+  type: String,
+  required
 }
 });
 
