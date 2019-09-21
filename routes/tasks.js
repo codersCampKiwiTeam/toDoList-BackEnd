@@ -8,14 +8,15 @@ const config = require('config');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
   const token = req.header('X-Auth-Token');
-  var decoded = jwt.verify(token, 'kiwi-secret');
-
+  const decoded = jwt.verify(token, 'kiwi-secret');
+  const id = decoded._id;
   //
   // const token = usertoken.split(' ');
   // const decoded = jwt.verify(token[1], 'secret-key');
   console.log(decoded);
+  console.log(id);
   // const tasks = await Task.find().sort('nameTask');
-  const tasks = await Task.find({ owner: req.user._id});
+  const tasks = await Task.find({id});
   console.log(req.user._id);
   console.log(tasks);
   res.send(tasks);
