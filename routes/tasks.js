@@ -7,12 +7,13 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 router.get('/', require('../middleware/auth.js').isAuthenticated, cors(), async (req, res) => {
-  // const usertoken = req.header('X-Auth-Token');
+  const token = req.header('X-Auth-Token');
+  var decoded = jwt.verify(token, '_id');
 
   //
   // const token = usertoken.split(' ');
   // const decoded = jwt.verify(token[1], 'secret-key');
-  // console.log(decoded);
+  console.log(decoded);
   // const tasks = await Task.find().sort('nameTask');
   const tasks = await Task.find({ owner: req.user._id});
   console.log(req.user._id);
@@ -53,7 +54,8 @@ router.post('/', require('../middleware/auth.js').isAuthenticated, cors(), async
       nameTask: req.body.nameTask,
       dateTask: req.body.dateTask,
       description: req.body.description,
-      status: req.body.status
+      status: req.body.status,
+      owner: req.body.owner
     });
     task = await task.save();
     console.log(task);
