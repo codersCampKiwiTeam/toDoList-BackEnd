@@ -18,7 +18,10 @@ const taskSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ['urgent','moderate','forLater']
-  }
+  },
+ownerID: {
+  type: String
+}
 });
 
 const Task = mongoose.model('Task', taskSchema);
