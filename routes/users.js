@@ -32,35 +32,27 @@ const register = app.post('/register', async (req, res) =>{
     catch(ex){
         console.log(ex.message);
     }
-        // res.send("Cos potężnie zjebano");
+        // res.send("Cos potężnie zj*bano");
        // console.log(req.body.registerEmail);
 });
 
 
- const login = app.post('/login', async (req, res) =>{ 
+ const login = app.post('/login', async (req, res) =>{
     let user = await User.findOne({ email: req.body.loginName });
     if (!user) return res.status(400).send('Invalid email or password');
-  
+
     const validPassword = await bcrypt.compare(req.body.loginPassword, user.password);
     if (!validPassword) return res.status(400).send('Invalid email or password');
-  
+
     const token = jwt.sign({ _id: this._id, user: this.user }, config.get('jwtPrivateKey'));
     console.log(token);
     res.send(token);
-   
+
   });
 
-       // res.send("Cos potężnie zjebano");
-        // console.log(req.body.registerEmail);
+      // res.send("Cos potężnie zj*bano");
+      // console.log(req.body.registerEmail);
 
 
         module.exports = register;
         module.exports = login;
-
-
-
-
-
-
-
-
