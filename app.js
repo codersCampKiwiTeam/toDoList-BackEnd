@@ -13,24 +13,24 @@ app.use(cors());
 app.options("*", cors({ 
     "origin" : "*",
     "methods" : "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    "allowedHeaders": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, x-auth-token"
+    "allowedHeaders" : "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, x-auth-token"
 }));
 
-mongoose.connect('mongodb+srv://coderscampkiwiteam:test@todoapp-jswak.mongodb.net/test?retryWrites=true&w=majority', { 
+mongoose.connect('mongodb+srv://Justyna:Aleksander14@cluster0-fqdik.mongodb.net/test?retryWrites=true&w=majority', { 
 useNewUrlParser: true, useUnifiedTopology: true    
 })
+// mongoose.connect('mongodb://localhost:27017/ToDoList', { 
+// useNewUrlParser: true, useUnifiedTopology: true    
+// })
 .then(() => console.log('connected to MongoDB...'))
 .catch(err => console.error('Could not connect to MongoDB...'))
 mongoose.set('useCreateIndex', true);
 // Express body parser
 app.use(express.json());
-//to nie wiem czy potrzebnie
-// app.use(cors());
-app.options('/tasks', cors())
 
 // Routes
 app.use('/users', require('./routes/UsersController.js'));
-app.use('/tasks', require('./routes/tasks.js'));
+app.use('/tasks', require('./routes/TasksController.js'));
 
 const PORT = process.env.PORT || 5005;
 

@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codersCampKiwiTeam/toDoList.git"
+    "url": "git+https://github.com/JustynaKop/Test"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/codersCampKiwiTeam/toDoList/issues"
+    "url": "https://github.com/JustynaKop/Test/issues"
   },
-  "homepage": "https://github.com/codersCampKiwiTeam/toDoList#readme",
+  "homepage": "https://github.com/JustynaKop/Test#readme",
   "dependencies": {
     "@hapi/joi": "^16.0.1",
     "bcrypt": "^3.0.6",
